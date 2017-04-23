@@ -12,7 +12,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
 
@@ -24,12 +29,18 @@ public class BankSlip {
 	@Column(name="id_bank_slip")
 	private Long id;
 	
-	private String Description;
+	@NotEmpty(message="Description is mandatory")
+	@Size(message="Description cannot exceed 60 characters")
+	private String description;
 	
+	@NotNull(message="Date is mandatory")
 	@DateTimeFormat(pattern="dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
 	private Date date;
 	
+	@NotNull(message="Value is mandatory")
+	@DecimalMin(value="0.01", message="Value cannot be smaller than 0,01")
+	@DecimalMax(value="9999999.99", message="Value cannot be bigger than 9.999.999,99")
 	@NumberFormat(pattern="#,##0.00")
 	private BigDecimal value;
 	
@@ -47,10 +58,10 @@ public class BankSlip {
 		this.id = id;
 	}
 	public String getDescription() {
-		return Description;
+		return description;
 	}
 	public void setDescription(String description) {
-		Description = description;
+		this.description = description;
 	}
 	public Date getDate() {
 		return date;

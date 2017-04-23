@@ -8,10 +8,13 @@
 </head>
 
 <section layout:fragment="content">
-	<form class="form-horizontal" method="post" action="/bankslip">
-		<div class="alert alert-success alert-dismissible" role="alert" th:if="${!#strings.isEmpty(mensagem)}">
+	<form class="form-horizontal" method="post" action="/bankslip" th:object="${bankSlip}">
+		<div layout:include="Messages"></div>	
+		<div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
 			<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
-			<span th:text="${mensagem}"></span>
+			<div th:each="detailedError : ${#fields.detailedErrors()}">
+				<span th:text="${detailedError.message}"></span>
+			</div>
 		</div>
 		
 		<div class="panel panel-default">
@@ -23,28 +26,28 @@
 			</div>
 			
 			<div class="panel-body">
-				<div class="form-group">
+				<div class="form-group" th:classappend="${#fields.hasErrors('description')}?'has-error'">
 					<label for="description" class="col-sm-2 control-label">Description</label>
 					<div class="col-sm-4">
-						<input type="text" class="form-control" id="description" name="description"/>
+						<input type="text" class="form-control" id="description" th:field="*{description}"/>
 					</div>
 				</div>
-				<div class="form-group">
+				<div class="form-group" th:classappend="${#fields.hasErrors('date')}?'has-error'">
 					<label for="chargingDate" class="col-sm-2 control-label">Date</label>
 					<div class="col-sm-2">
-						<input type="text" class="form-control" id="chargingDate" name="date"/>
+						<input type="text" class="form-control" id="chargingDate" th:field="*{date}"/>
 					</div>
 				</div>
-				<div class="form-group">
+				<div class="form-group" th:classappend="${#fields.hasErrors('value')}?'has-error'">
 					<label for="value" class="col-sm-2 control-label">Value</label>
 					<div class="col-sm-2">
-						<input type="text" class="form-control" id="value" name="value"/>
+						<input type="text" class="form-control" id="value" th:field="*{value}"/>
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="statusBankSlip" class="col-sm-2 control-label">Status</label>
 					<div class="col-sm-2">
-						<select class="form-control" id="statusBankSlip" name="statusBankSlip">
+						<select class="form-control" id="statusBankSlip" th:field="*{statusBankSlip}">
 							<option th:each="statusBankSlip : ${allStatusBankSlip}" th:value="${statusBankSlip}" th:text="${statusBankSlip.description}"></option>
 						</select>
 					</div>

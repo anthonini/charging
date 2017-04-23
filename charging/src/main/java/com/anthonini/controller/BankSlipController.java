@@ -5,10 +5,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.anthonini.model.BankSlip;
 import com.anthonini.model.StatusBankSlip;
@@ -24,17 +27,20 @@ public class BankSlipController {
 	@RequestMapping("/new")
 	public ModelAndView form(){
 		ModelAndView modelAndView = new ModelAndView("Form");
+		modelAndView.addObject(new BankSlip());
 		
 		return modelAndView;
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public ModelAndView save(BankSlip bankSlip){
-		ModelAndView modelAndView = new ModelAndView("Form");
-		bankSlipRepository.save(bankSlip);
-		modelAndView.addObject("mensagem", "Bank slip successfully created!");
+	public String save(@Validated BankSlip bankSlip, Errors errors, RedirectAttributes attributes){
+		if(errors.hasErrors()){
+			return "Form";
+		}
 		
-		return modelAndView;
+		bankSlipRepository.save(bankSlip);
+		attributes.addFlashAttribute("message", "Bank slip successfully created!");
+		return "redirect:/bankslip/new";
 	}
 	
 	@RequestMapping

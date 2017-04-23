@@ -19,7 +19,7 @@ import com.anthonini.repository.BankSlipRepository;
 public class BankSlipController {
 
 	@Autowired
-	BankSlipRepository repository;
+	BankSlipRepository bankSlipRepository;
 	
 	@RequestMapping("/new")
 	public ModelAndView form(){
@@ -31,8 +31,17 @@ public class BankSlipController {
 	@RequestMapping(method=RequestMethod.POST)
 	public ModelAndView save(BankSlip bankSlip){
 		ModelAndView modelAndView = new ModelAndView("Form");
-		repository.save(bankSlip);
+		bankSlipRepository.save(bankSlip);
 		modelAndView.addObject("mensagem", "Bank slip successfully created!");
+		
+		return modelAndView;
+	}
+	
+	@RequestMapping
+	public ModelAndView search(){
+		List<BankSlip> bankSlips = bankSlipRepository.findAll();
+		ModelAndView modelAndView = new ModelAndView("List");
+		modelAndView.addObject("bankSlips", bankSlips);
 		
 		return modelAndView;
 	}

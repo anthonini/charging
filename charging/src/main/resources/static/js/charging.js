@@ -19,4 +19,26 @@ $(function(){
 	$('[rel="tooltip"]').tooltip();
 	$('.js-currency').maskMoney({decimal:',',thousands:'.',allowZero:true});
 	$('.js-date').mask('00/00/0000');
-})
+	
+	$('.js-update-status').on('click',function(event){
+		event.preventDefault();
+		
+		var receiveButton = $(event.currentTarget);
+		var receiveURL = receiveButton.attr('href');
+		
+		var response = $.ajax({
+			url : receiveURL,
+			type: 'PUT'
+		});
+		
+		response.done(function(e){
+			var bankslipCode = receiveButton.data('code');
+			$('[data-role =' + bankslipCode+']').html('<span class="label label-success">'+ e +'</span>')
+			receiveButton.hide();
+		});
+		
+		response.failed(function(e){
+			alert('Charging receive error')
+		});
+	});
+});

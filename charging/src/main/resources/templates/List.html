@@ -9,56 +9,60 @@
 </head>
 
 <section layout:fragment="content">
-	<form class="form-horizontal" method="post" action="/bankslip">
-		<div class="alert alert-success alert-dismissible" role="alert" th:if="${!#strings.isEmpty(mensagem)}">
-			<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
-			<span th:text="${mensagem}"></span>
+	<div class="alert alert-success alert-dismissible" role="alert" th:if="${!#strings.isEmpty(mensagem)}">
+		<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
+		<span th:text="${mensagem}"></span>
+	</div>
+	
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<div class="clearfix">
+				<h1 class="panel-title ar-bankslip-panel"><b>Bank Slip Search</b></h1>
+				<a class="btn btn-link ar-link-panel" href="/bankslip/new">New Bank Slip</a>
+			</div>
 		</div>
 		
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<div class="clearfix">
-					<h1 class="panel-title ar-bankslip-panel"><b>Bank Slip Search</b></h1>
-					<a class="btn btn-link ar-link-panel" href="/bankslip/new">New Bank Slip</a>
-				</div>
-			</div>
-			
-			<div class="panel-body">
-				<table class="table table-bordered table-striped">
-					<thead>
-						<tr>
-							<th class="text-center col-md-1">#</th>
-							<th>Description</th>
-							<th class="text-center col-md-2">Date</th>
-							<th class="text-right  col-md-2">Value</th>
-							<th class="text-center col-md-2">Status</th>
-							<th class="col-md-1"></th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:each="bankSlip : ${bankSlips}">
-							<td class="text-center" th:text="${bankSlip.id}"></td>
-							<td th:text="${bankSlip.description}"></td>
-							<td class="text-center" th:text="${{bankSlip.date}}"></td>
-							<td class="text-right" th:text="|R$ ${{bankSlip.value}}|"></td>
-							<td class="text-center">
-								<span class="label" th:text="${bankSlip.statusBankSlip.description}"
-									th:classappend="${bankSlip.pending ?'label-danger':'label-success'}"></span>
-							</td>
-							<td class="text-center">
-								<a class="btn btn-link btn-xs" th:href="@{/bankslip/{id}(id=${bankSlip.id})}">
-									<span class="glyphicon glyphicon-pencil"></span>
-								</a>
-							</td>
-						</tr>
-						<tr>
-							<td colspan="6" th:if="${#lists.isEmpty(bankSlips)}">No Bank Slip has been found</td>
-						</tr>
-						<!-- <tr th:each=""></tr> -->
-					</tbody>
-				</table>
-			</div>
+		<div class="panel-body">
+			<table class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th class="text-center col-md-1">#</th>
+						<th>Description</th>
+						<th class="text-center col-md-2">Date</th>
+						<th class="text-right  col-md-2">Value</th>
+						<th class="text-center col-md-2">Status</th>
+						<th class="col-md-1"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="bankSlip : ${bankSlips}">
+						<td class="text-center" th:text="${bankSlip.id}"></td>
+						<td th:text="${bankSlip.description}"></td>
+						<td class="text-center" th:text="${{bankSlip.date}}"></td>
+						<td class="text-right" th:text="|R$ ${{bankSlip.value}}|"></td>
+						<td class="text-center">
+							<span class="label" th:text="${bankSlip.statusBankSlip.description}"
+								th:classappend="${bankSlip.pending ?'label-danger':'label-success'}"></span>
+						</td>
+						<td class="text-center">
+							<a class="btn btn-link btn-xs" th:href="@{/bankslip/{id}(id=${bankSlip.id})}">
+								<span class="glyphicon glyphicon-pencil"></span>
+							</a>
+							<a class="btn btn-link btn-xs" data-toggle="modal" data-target="#deleteConfimartionModal"
+									th:attr="data-code=${bankSlip.id}, data-description=${bankSlip.description}">
+								<span class="glyphicon glyphicon-remove"></span>
+							</a>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="6" th:if="${#lists.isEmpty(bankSlips)}">No Bank Slip has been found</td>
+					</tr>
+					<!-- <tr th:each=""></tr> -->
+				</tbody>
+			</table>
 		</div>
-	</form>
+	</div>
+	
+	<div layout:include="DeleteConfirmationDialog"></div>
 </section>
 </html>

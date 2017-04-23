@@ -71,6 +71,14 @@ public class BankSlipController {
 		return modelAndView;
 	}
 	
+	@RequestMapping(value="{id}", method = RequestMethod.DELETE)
+	public String delete(@PathVariable("id") Long id, RedirectAttributes attributes){
+		bankSlipRepository.delete(id);
+		attributes.addFlashAttribute("message", "Bank slip successfully removed!");
+		
+		return "redirect:/bankslip";
+	}
+	
 	@ModelAttribute("allStatusBankSlip")
 	public List<StatusBankSlip> allStatusBankSlip(){
 		return Arrays.asList(StatusBankSlip.values());

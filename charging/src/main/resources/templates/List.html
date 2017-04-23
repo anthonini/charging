@@ -23,6 +23,22 @@
 		</div>
 		
 		<div class="panel-body">
+			<form method="GET" class="form form-horizontal" th:object="${filter}">
+				<div class="form-group">
+					<div class="col-sm-4">
+						<div class="input-group">
+							<input class="form-control" placeholder="Which bank slip are you looking for?"
+							 	autofocus="autofocus" th:field="*{description}" ></input>
+							<span class="input-group-btn">
+								<button type="submit" class="btn btn-default">
+									<i class="glyphicon glyphicon-search"></i>
+								</button>
+							</span>
+						</div>
+					</div>
+				</div>
+			</form>
+
 			<table class="table table-bordered table-striped">
 				<thead>
 					<tr>

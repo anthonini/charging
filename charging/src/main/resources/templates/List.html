@@ -40,7 +40,7 @@
 						<td th:text="${bankSlip.description}"></td>
 						<td class="text-center" th:text="${{bankSlip.date}}"></td>
 						<td class="text-right" th:text="|R$ ${{bankSlip.value}}|"></td>
-						<td class="text-center">
+						<td class="text-center" th:attr="data-role=${bankSlip.id}">
 							<span class="label" th:text="${bankSlip.statusBankSlip.description}"
 								th:classappend="${bankSlip.pending ?'label-danger':'label-success'}"></span>
 						</td>
@@ -53,6 +53,12 @@
 									th:attr="data-code=${bankSlip.id}, data-description=${bankSlip.description}"
 									title="Delete" rel="tooltip" data-placement="top">
 								<span class="glyphicon glyphicon-remove"></span>
+							</a>
+							<a class="btn btn-link btn-xs js-update-status" th:if="${bankSlip.pending}" 
+								title="Receive" rel="tooltip" data-placement="top"
+								th:attr="data-code=${bankSlip.id}"
+								th:href="@{/bankslip/{id}/receive(id=${bankSlip.id})}">
+								<span class="glyphicon glyphicon-check"></span>
 							</a>
 						</td>
 					</tr>

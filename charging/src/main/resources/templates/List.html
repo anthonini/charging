@@ -45,11 +45,13 @@
 								th:classappend="${bankSlip.pending ?'label-danger':'label-success'}"></span>
 						</td>
 						<td class="text-center">
-							<a class="btn btn-link btn-xs" th:href="@{/bankslip/{id}(id=${bankSlip.id})}">
+							<a class="btn btn-link btn-xs" th:href="@{/bankslip/{id}(id=${bankSlip.id})}" 
+								title="Update" rel="tooltip" data-placement="top">
 								<span class="glyphicon glyphicon-pencil"></span>
 							</a>
 							<a class="btn btn-link btn-xs" data-toggle="modal" data-target="#deleteConfimartionModal"
-									th:attr="data-code=${bankSlip.id}, data-description=${bankSlip.description}">
+									th:attr="data-code=${bankSlip.id}, data-description=${bankSlip.description}"
+									title="Delete" rel="tooltip" data-placement="top">
 								<span class="glyphicon glyphicon-remove"></span>
 							</a>
 						</td>

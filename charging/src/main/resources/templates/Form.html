@@ -36,13 +36,16 @@
 				<div class="form-group" th:classappend="${#fields.hasErrors('date')}?'has-error'">
 					<label for="chargingDate" class="col-sm-2 control-label">Date</label>
 					<div class="col-sm-2">
-						<input type="text" class="form-control" id="chargingDate" th:field="*{date}"/>
+						<input type="text" class="form-control js-date" id="chargingDate" th:field="*{date}"
+							data-provide="datepicker" data-date-format="dd/mm/yyyy" data-date-language="pt-BR"
+							data-date-autoclose="true" data-date-today-highlight="true" 
+							data-date-orientation="bottom"/>
 					</div>
 				</div>
 				<div class="form-group" th:classappend="${#fields.hasErrors('value')}?'has-error'">
 					<label for="value" class="col-sm-2 control-label">Value</label>
 					<div class="col-sm-2">
-						<input type="text" class="form-control" id="value" th:field="*{value}"/>
+						<input type="text" class="form-control js-currency" id="value" th:field="*{value}" />
 					</div>
 				</div>
 				<div class="form-group">

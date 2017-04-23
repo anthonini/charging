@@ -14,3 +14,9 @@ $('#deleteConfimartionModal').on('show.bs.modal', function(event){
 	
 	modal.find('.modal-body span').html('Are you sure you wish to delete the bank slip <strong>'+bankSlipDescription+'</strong>?');
 });
+
+$(function(){
+	$('[rel="tooltip"]').tooltip();
+	$('.js-currency').maskMoney({decimal:',',thousands:'.',allowZero:true});
+	$('.js-date').mask('00/00/0000');
+})

@@ -1,22 +1,13 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" 
-	xmlns:th="http://www.thymeleaf.org">
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="ChargingLayout">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Bank Slip Register</title>
-<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
-<link rel="stylesheet" type="text/css" href="/css/style.css"/>
+	<title>Bank Slip Register</title>
 </head>
-<body>
-	<nav class="navbar navbar-inverse navbar-static-top">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="#">
-					<span class="glyphicon glyphicon-usd"></span>Bank Slip</a>
-			</div>
-		</div>
-	</nav>
 
+<section layout:fragment="content">
 	<form class="form-horizontal" method="post" action="/bankslip">
 		<div class="alert alert-success alert-dismissible" role="alert" th:if="${!#strings.isEmpty(mensagem)}">
 			<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
@@ -25,7 +16,10 @@
 		
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<h1 class="panel-title"><b>New Bank Slip</b></h1>
+				<div class="clearfix">
+					<h1 class="panel-title ar-bankslip-panel"><b>New Bank Slip</b></h1>
+					<a class="btn btn-link ar-link-panel" href="/bankslip">Back to search</a>
+				</div>
 			</div>
 			
 			<div class="panel-body">
@@ -63,7 +57,5 @@
 			</div>
 		</div>
 	</form>
-<script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>	
-<script type="text/javascript" src="/js/bootstrap.min.js"></script>
-</body>
+</section>
 </html>

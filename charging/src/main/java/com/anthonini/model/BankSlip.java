@@ -36,6 +36,10 @@ public class BankSlip {
 	@Enumerated(EnumType.STRING)
 	private StatusBankSlip statusBankSlip;
 	
+	public boolean isPending(){
+		return this.statusBankSlip.equals(StatusBankSlip.PENDING);
+	}
+	
 	public Long getId() {
 		return id;
 	}

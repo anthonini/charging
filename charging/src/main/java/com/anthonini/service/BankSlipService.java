@@ -1,5 +1,7 @@
 package com.anthonini.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -7,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.anthonini.model.BankSlip;
 import com.anthonini.model.StatusBankSlip;
 import com.anthonini.repository.BankSlipRepository;
+import com.anthonini.repository.filter.BankSlipFilter;
 
 @Service
 public class BankSlipService {
@@ -32,5 +35,10 @@ public class BankSlipService {
 		bankSlipRepository.save(bankSlip);
 		
 		return StatusBankSlip.RECEIVED.getDescription();
+	}
+	
+	public List<BankSlip> filter(BankSlipFilter bankSlipFilter){
+		String description = bankSlipFilter.getDescription() == null ? "%" : bankSlipFilter.getDescription();		
+		return bankSlipRepository.findByDescriptionContaining(description);
 	}
 }

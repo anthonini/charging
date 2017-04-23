@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
@@ -39,20 +40,26 @@ public class BankSlipController {
 			return "Form";
 		}
 		
-		String redirect, message;
-		if(bankSlip.getId() == null){
-			message = "Bank slip successfully created!";
-			redirect = "redirect:/bankslip/new";
-		}else{
-			message = "Bank slip successfully updated!";
-			redirect = "redirect:/bankslip";
+		try{
+			boolean creating = bankSlip.getId() == null;
+			
+			bankSlipRepository.save(bankSlip);
+		
+			String message, redirect;
+			if(creating){
+				message = "Bank slip successfully created!";
+				redirect = "redirect:/bankslip/new";
+			}else{
+				message = "Bank slip successfully updated!";
+				redirect = "redirect:/bankslip";
+			}
+			
+			attributes.addFlashAttribute("message", message);			
+			return redirect;
+		}catch (DataIntegrityViolationException e) {
+			errors.rejectValue("date", null, "Invalid Date Format");
+			return "Form";
 		}
-		
-		bankSlipRepository.save(bankSlip);
-		
-		attributes.addFlashAttribute("message", message);
-		
-		return redirect;
 	}
 	
 	@RequestMapping

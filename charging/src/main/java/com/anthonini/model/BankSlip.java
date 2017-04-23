@@ -30,7 +30,7 @@ public class BankSlip {
 	private Long id;
 	
 	@NotEmpty(message="Description is mandatory")
-	@Size(message="Description cannot exceed 60 characters")
+	@Size(max=60, message="Description cannot exceed 60 characters")
 	private String description;
 	
 	@NotNull(message="Date is mandatory")

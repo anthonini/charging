@@ -46,7 +46,9 @@
 									th:classappend="${bankSlip.pending ?'label-danger':'label-success'}"></span>
 							</td>
 							<td class="text-center">
-								
+								<a class="btn btn-link btn-xs" th:href="@{/bankslip/{id}(id=${bankSlip.id})}">
+									<span class="glyphicon glyphicon-pencil"></span>
+								</a>
 							</td>
 						</tr>
 						<tr>

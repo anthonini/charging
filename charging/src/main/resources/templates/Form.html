@@ -9,7 +9,6 @@
 
 <section layout:fragment="content">
 	<form class="form-horizontal" method="post" action="/bankslip" th:object="${bankSlip}">
-		<div layout:include="Messages"></div>	
 		<div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
 			<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
 			<div th:each="detailedError : ${#fields.detailedErrors()}">
@@ -26,6 +25,8 @@
 			</div>
 			
 			<div class="panel-body">
+				<input type="hidden" th:field="*{id}"/>
+				
 				<div class="form-group" th:classappend="${#fields.hasErrors('description')}?'has-error'">
 					<label for="description" class="col-sm-2 control-label">Description</label>
 					<div class="col-sm-4">

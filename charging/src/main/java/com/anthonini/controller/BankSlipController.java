@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -38,9 +39,20 @@ public class BankSlipController {
 			return "Form";
 		}
 		
+		String redirect, message;
+		if(bankSlip.getId() == null){
+			message = "Bank slip successfully created!";
+			redirect = "redirect:/bankslip/new";
+		}else{
+			message = "Bank slip successfully updated!";
+			redirect = "redirect:/bankslip";
+		}
+		
 		bankSlipRepository.save(bankSlip);
-		attributes.addFlashAttribute("message", "Bank slip successfully created!");
-		return "redirect:/bankslip/new";
+		
+		attributes.addFlashAttribute("message", message);
+		
+		return redirect;
 	}
 	
 	@RequestMapping
@@ -49,6 +61,13 @@ public class BankSlipController {
 		ModelAndView modelAndView = new ModelAndView("List");
 		modelAndView.addObject("bankSlips", bankSlips);
 		
+		return modelAndView;
+	}
+	
+	@RequestMapping("{id}")
+	public ModelAndView updating(@PathVariable("id") BankSlip bankSlip){		
+		ModelAndView modelAndView = new ModelAndView("Form");
+		modelAndView.addObject(bankSlip);
 		return modelAndView;
 	}
 	

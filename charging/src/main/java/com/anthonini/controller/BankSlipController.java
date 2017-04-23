@@ -17,15 +17,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.anthonini.model.BankSlip;
 import com.anthonini.model.StatusBankSlip;
-import com.anthonini.repository.BankSlipRepository;
+import com.anthonini.repository.filter.BankSlipFilter;
 import com.anthonini.service.BankSlipService;
 
 @Controller
 @RequestMapping("/bankslip")
 public class BankSlipController {
-
-	@Autowired
-	BankSlipRepository bankSlipRepository;
 	
 	@Autowired
 	BankSlipService bankSlipService;
@@ -67,10 +64,9 @@ public class BankSlipController {
 	}
 	
 	@RequestMapping
-	public ModelAndView search(){
-		List<BankSlip> bankSlips = bankSlipRepository.findAll();
+	public ModelAndView search(@ModelAttribute("filter") BankSlipFilter bankSlipFilter){
 		ModelAndView modelAndView = new ModelAndView("List");
-		modelAndView.addObject("bankSlips", bankSlips);
+		modelAndView.addObject("bankSlips", bankSlipService.filter(bankSlipFilter));
 		
 		return modelAndView;
 	}

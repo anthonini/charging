@@ -1,2 +1,2 @@
 # charging
-A simple charging system to manage bank slips using Spring MVC, Spring Data and Thymeleaf.
+A simple charging system using Spring Boot, Spring MVC, Spring Data JPA, Ajax, Thymeleaf, Bootstrap, Jquery, MySQL.

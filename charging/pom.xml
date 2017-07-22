@@ -5,11 +5,11 @@
 
 	<groupId>com.anthonini</groupId>
 	<artifactId>charging</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<version>1.0.0</version>
+	<packaging>war</packaging>
 
 	<name>charging</name>
-	<description>A simple charging system to manage bank slips.</description>
+	<description>A simple charging system.</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -55,6 +55,7 @@
 	</dependencies>
 
 	<build>
+		<finalName>${project.artifactId}</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

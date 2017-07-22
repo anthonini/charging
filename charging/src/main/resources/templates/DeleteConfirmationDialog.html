@@ -5,7 +5,7 @@
 	
 <div class="modal fade" id="deleteConfimartionModal" tabindex="-1" data-keyboard="false" data-backdrop="static">
 	<div class="modal-dialog">
-		<form th:attr="data-url-base='/bankslip'" method="POST">
+		<form th:attr="data-url-base=@{/bankslip}" method="POST">
 			<input type="hidden" name="_method" value="DELETE"></input>
 			
 			<div class="modal-content">
